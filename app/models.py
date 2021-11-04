@@ -82,6 +82,9 @@ class User(UserMixin, db.Model):
                 unique_names.add(poke.name)
             else:
                 self.release(poke)
+        while self.pokemon.count() > 5:
+            to_release = self.pokemon.first()
+            self.release(to_release)
 
 
     def from_dict(self, data):

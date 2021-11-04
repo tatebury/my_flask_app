@@ -1,5 +1,14 @@
 {% extends 'base.html.j2' %}
 {% block content %}
+
+{% block title %}
+Attack Users
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/show_users.css')}}">
+{% endblock %}
+
 {% for user in users %}
     {% if not user.id == current_user.id %}
         <div class="card mb-3" style="max-width: 540px;">
@@ -10,12 +19,35 @@
             <div class="col-md-8">
             <div class="card-body">
                 <h5 class="card-title">{{user.first_name}} {{user.last_name}}</h5>
-                <p class="card-text">Maybe we will and a bio to the user in the future and put it here</p>
-                {% if current_user.is_following(user)%}
+                <p class="card-text">{{user}}</p>
+
+                {% for poke in pokemon %}
+                    {% if poke.user_id==user.id %}
+                    <div class="row">
+                        <div class="col-md-6">
+                        <p class="card-text"><b>{{poke.name.title()}}</b></p>
+                        </div>
+                        <div class="col-md-6">
+                        <img src="{{poke.url}}" id="poke_img" class="img-fluid rounded-start" alt="avatar" style="height:100px;">
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+                {% if user.pokemon.count() > 0 %}
+                    <form method="POST" action="{{url_for('social.battle', def_id = user.id, fighter_id = 0)}}">
+                        <button type="submit">
+                            Attack
+                        </button>
+                    </form>
+                {% else %}
+                <a href="" class="btn disabled">Cannot attack, user has no pokemon.</a>
+                {% endif %}
+
+                {# {% if current_user.is_following(user)%}
                     <a href="/unfollow/{{user.id}}" class="btn btn-danger">Unfollow</a>
                 {% else %}
                     <a href="/follow/{{user.id}}" class="btn btn-info">Follow</a>
-                {% endif %}
+                {% endif %} #}
             </div>
             </div>
         </div>

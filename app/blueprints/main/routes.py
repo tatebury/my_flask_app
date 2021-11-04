@@ -100,3 +100,14 @@ def add_pokemon(id):
         flash(f'{poke.name} has been caught', 'success')
         return redirect(url_for('main.pokemon'))
 
+
+# @main.route('/to_fight/<int:def_id>/<int:fighter_id>', methods=['GET','POST'])
+# @login_required
+# def to_fight(def_id, fighter_id):
+#     fighter = Pokemon.query.get(id)
+#     if request.method=='POST':
+#         return redirect(url_for('main.show_pokemon'), fighter = fighter)
+#             user_to_battle = User.query.get(id)
+#     # current_user.battle(user_to_battle)
+#     return render_template('battle.html.j2', defender = user_to_battle)
+

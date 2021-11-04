@@ -2,8 +2,8 @@
     <link rel="stylesheet" href="{{url_for('static',filename='css/nav.css')}}">
 {% endblock %}
 <nav class="navbar navbar-expand-lg navbar-light" style="">
-    <div class="container-fluid row" style="background-color:lightgrey;margin:0px;">
-      <a class="navbar-brand col-2" href="{{url_for('main.index')}}"><b>PokeSearch</b></a>
+    <div class="container-fluid row" style="background-color:azure;margin:0px;">
+      <a class="navbar-brand col-2" href="{{url_for('main.index')}}" style="color:rgb(158, 24, 0);"><b>BattlePoke</b></a>
       {# <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button> #}
@@ -13,7 +13,7 @@
           <a class="nav-link col-2" style="color:black;" aria-current="page" href="{{url_for('main.index')}}"><small>Home</small></a>
           <a class="nav-link col-3" style="color:black;" aria-current="page" href="{{url_for('main.pokemon')}}"><small>Add Pokemon</small></a>
           <a class="nav-link col-3" style="color:black;" aria-current="page" href="{{url_for('main.show_pokemon')}}"><small>My Pokemon</small></a>
-          <a class="nav-link col-3" style="color:black;" href="{{url_for('social.show_users')}}"><small>Explore</small></a>
+          <a class="nav-link col-3" style="color:black;" href="{{url_for('social.show_users')}}"><small>Battle</small></a>
 
           {% else %}
           <a class="nav-link col-6" style="color:black;" aria-current="page" href="{{url_for('auth.register')}}"><small>Register</small></a>

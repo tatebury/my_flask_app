@@ -1,0 +1,33 @@
+
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    color:azure;
+
+}
+
+h2{
+    color:rgb(158, 24, 0);
+}
+
+#defender_poke{
+    float: left;
+}
+#attacker_poke{
+    float: right;
+}
+
+#attacker_deck{
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
+
+#defender_deck{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+}

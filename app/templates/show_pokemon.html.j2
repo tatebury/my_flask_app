@@ -1,6 +1,10 @@
 {% extends 'base.html.j2' %}
 {% block content %}
 
+{% block title %}
+My Pokemon
+{% endblock %}
+
 {% block css %}
     <link rel="stylesheet" href="{{url_for('static',filename='css/show_pokemon.css')}}">
 {% endblock %}
@@ -11,7 +15,7 @@
         <div class="card mb-3" id="poke_card" style="max-width: 740px;">
         <div class="row g-0">
             <div class="col-md-2">
-            <img src="https://avatars.dicebear.com/api/avataaars/{{poke.trainer.icon}}.svg" class="img-fluid rounded-start" alt="avatar" style="width:100px;">
+            <img src="https://avatars.dicebear.com/api/avataaars/{{poke.trainer.icon}}.svg" id="user_icon" class="img-fluid rounded-start" alt="avatar" style="width:100px;">
             <form method="POST" action="{{url_for('main.remove_pokemon', id = poke.id)}}">
                 <button type="submit" class="btn btn-danger"><i class=""></i>&nbsp;Release</button>
             </form>
