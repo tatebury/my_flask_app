@@ -1,6 +1,2 @@
 # Flask Webpage
-#### Includes:
-1. Login Page
-2. Registration 
-3. PokeSearch
-4. Home
+Check the branch named "w6d2-3_pokemon_battle" for the most recent addition.
