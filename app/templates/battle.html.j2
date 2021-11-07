@@ -23,57 +23,30 @@ Battle
         </div>
 
     </div> 
-
-    {# {% set current_id_min = 9000000 %}
-    {% set opponent = None %}
-    {% for poke in defender.pokemon %}
-        {% if poke.id < current_id_min %}
-            {% set current_id_min = poke.id %}
-        {% endif %}
-    {% endfor %}
-
-    {% set opponent = Pokemon.query.get(current_id_min) %} #}
-    
-  
-    
-
-    
-    <div class="fighter row">
-        <div class="col-md-6">
-        {% if opponent %}
-        <img src="{{opponent.url}}" id="" class="img-fluid rounded-start" alt="avatar" style="height:30vw;">
-        {% endif %}
-        </div>
-
-
-        <div class="col-md-6">
-        {% if fighter %}
-        <img src="{{fighter.url}}" id="poke_img" class="img-fluid rounded-start" alt="avatar" style="height:30vw;">
-        {% endif %}
-        </div>
-    </div>
-  
+    {% if victory!=null %}
+    {% include './includes/end_battle.html.j2' %}
+    {% else %}
+    {% include './includes/fight.html.j2' %}
+    {% endif %}
 
     <div class="poke_deck">
         <div class="" id="attacker_deck">
             {% for poke in current_user.pokemon %}
                 {% if poke.user_id==current_user.id %}
-                    {# {% if poke.id!=dead_poke.id %} #}
-                    <div id="defender_poke">
-                        <form method="POST" action="{{url_for('social.battle', def_id = defender.id, fighter_id = poke.id)}}">
+                    <div id="attacker_poke">
+                    {% if poke.is_dead!=true  and opponent %}
+                        <form method="POST" action="{{url_for('social.battle', def_id=defender.id, fighter_id=poke.id, opponent_id=opponent.id, fight=0)}}">
                             <button type="submit">
                             <img src="{{poke.url}}" id="poke_img" class="img-fluid rounded-start" alt="avatar" style="height:8vw;">
                             </button>
                         </form>
 
-                    </div>
-                    {# {% else %}
-                    <div id="defender_poke">
+                    {% else %}
+                        <button style="background-color:rgb(120, 24, 0);">
                         <img src="{{poke.url}}" id="poke_img" class="img-fluid rounded-start" alt="avatar" style="height:8vw;transform:rotate(180deg);">
-                            
-
+                        </button>
+                    {% endif %}
                     </div>
-                    {% endif %} #}
                 {% endif %}
             {% endfor %}
         </div>
@@ -81,24 +54,17 @@ Battle
         <div class="" id="defender_deck">
             {% for poke in defender.pokemon %}
                 {% if poke.user_id==defender.id %}
-
-                    {# {% if poke.id!=dead_poke.id %} #}
                     <div id="defender_poke">
-                        <form method="POST" class="disabled">
-                            <button type="disabled"  class="disabled" style="background-color:rgb(158, 24, 0);">
+                        {% if poke.is_dead!=true %}
+                            <button style="background-color:rgb(158, 24, 0);">
                             <img src="{{poke.url}}" id="poke_img" class="img-fluid rounded-start" alt="avatar" style="height:8vw;">
                             </button>
-                        </form>
-
+                        {% else %}
+                            <button style="background-color:rgb(158, 24, 0);">
+                            <img src="{{poke.url}}" id="poke_img" class="img-fluid rounded-start" alt="avatar" style="height:8vw;transform:rotate(180deg);">
+                            </button>
+                        {% endif %} 
                     </div>
-                    {# {% else %}
-                    <div id="defender_poke">
-                        <img src="{{poke.url}}" id="poke_img" class="img-fluid rounded-start" alt="avatar" style="height:8vw;transform:rotate(180deg);">
-                            
-
-                    </div>
-                    {% endif %} #}
-
                 {% endif %}
             {% endfor %}
         </div>

@@ -19,6 +19,12 @@ Attack Users
             <div class="col-md-8">
             <div class="card-body">
                 <h5 class="card-title">{{user.first_name}} {{user.last_name}}</h5>
+                <p> 
+                Offense Wins: {{user.offense_wins}}<br>
+                Defense Wins: {{user.defense_wins}} <br>
+                Total Battles: {{user.total_battles}} <br>
+                </p>
+
                 <p class="card-text">{{user}}</p>
 
                 {% for poke in pokemon %}
@@ -34,14 +40,16 @@ Attack Users
                     {% endif %}
                 {% endfor %}
                 {% if user.pokemon.count() > 0 %}
-                    <form method="POST" action="{{url_for('social.battle', def_id = user.id, fighter_id = 0)}}">
-                        <button type="submit">
+                    <form method="POST" action="{{url_for('social.battle', def_id=user.id, fighter_id=0, opponent_id=0, fight=0)}}">
+                        <button type="submit" id="attack_btn">
                             Attack
                         </button>
                     </form>
                 {% else %}
                 <a href="" class="btn disabled">Cannot attack, user has no pokemon.</a>
                 {% endif %}
+
+
 
                 {# {% if current_user.is_following(user)%}
                     <a href="/unfollow/{{user.id}}" class="btn btn-danger">Unfollow</a>

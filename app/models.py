@@ -18,6 +18,9 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(200), unique=True, index=True)
     password = db.Column(db.String(200))
     icon = db.Column(db.Integer)
+    defense_wins = db.Column(db.String(10))
+    offense_wins = db.Column(db.String(10))
+    total_battles = db.Column(db.String(10))
     created_on = db.Column(db.DateTime, default=dt.utcnow)
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     pokemon = db.relationship('Pokemon', backref='trainer', lazy='dynamic')
@@ -54,6 +57,21 @@ class User(UserMixin, db.Model):
         #add those together and then I want to sort then my dates in descending order
         all_posts = followed.union(self_posts).order_by(Post.date_created.desc())
         return all_posts
+
+
+    def add_offense_win(self):
+        new_value = self.offense_wins+1
+        self.offense_wins=new_value
+        db.session.commit()
+
+    def add_defense_win(self):
+        new_value = self.defense_wins+1
+        self.defense_wins=new_value
+        db.session.commit()
+
+    def add_total_battle(self):
+        self.total_battles.add(1)
+        db.session.commit()
 
 
 
@@ -108,7 +126,7 @@ class User(UserMixin, db.Model):
         db.session.commit() #save everything in the session to the database
     
     def get_icon_url(self):
-        return f'https://avatars.dicebear.com/api/bottts/{self.icon}.svg'
+        return f'https://avatars.dicebear.com/api/avataaars/{self.icon}.svg'
 
     def __repr__(self):
         return f'<User: {self.id} | {self.email}>'
@@ -148,6 +166,7 @@ class Pokemon(db.Model):
     defense = db.Column(db.String(50))
     attack = db.Column(db.String(50))
     url = db.Column(db.String(150))
+    is_dead = db.Column(db.Boolean, unique=False, default=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def from_dict(self, pokemon):
@@ -162,6 +181,19 @@ class Pokemon(db.Model):
     def save(self):
         db.session.add(self)
         db.session.commit()
+
+    def set_to_dead(self):
+        self.is_dead=True
+        db.session.commit()
+
+    def revive_all_pokemon(self):
+        for poke in Pokemon.query.all():
+            poke.is_dead = False
+        self.save()
+
+    def remove_all_pokemon(self):
+        Pokemon.query.delete()
+        self.save()
 
     def __repr__(self):
         return f'<id: {self.id} | Pokemon: {self.name}>'

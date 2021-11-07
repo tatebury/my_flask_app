@@ -31,3 +31,13 @@ h2{
     bottom: 0px;
     left: 0px;
 }
+
+#opponent>p{
+    float: right;
+    color:rgb(158, 24, 0);
+}
+
+#fighter>p{
+    float: left;
+    color:azure;
+}

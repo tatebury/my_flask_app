@@ -5,3 +5,8 @@
 /* #poke_img{
     float: right;
 } */
+
+#attack_btn{
+    background-color: red;
+    color: azure;
+}
