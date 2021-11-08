@@ -1,0 +1,54 @@
+{% extends 'base.html.j2' %}
+{% block content %}
+
+{% block title %}
+My Pokemon
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/show_pokemon.css')}}">
+{% endblock %}
+
+{% for poke in pokemon %}
+
+    {% if poke.user_id==current_user.id %}
+        <div class="card mb-3" id="poke_card" style="max-width: 740px;">
+        <div class="row g-0">
+            <div class="col-md-2">
+            <img src="https://avatars.dicebear.com/api/avataaars/{{poke.trainer.icon}}.svg" id="user_icon" class="img-fluid rounded-start" alt="avatar" style="width:100px;">
+            <form method="POST" action="{{url_for('main.remove_pokemon', id = poke.id)}}">
+                <button type="submit" class="btn btn-danger"><i class=""></i>&nbsp;Release</button>
+            </form>
+            </div>
+
+            <div class="col-md-4">
+            <div class="card-body">
+                <h5 class="card-title">{{poke.trainer.first_name}} {{poke.trainer.last_name}} added: </h5>
+                <p class="card-text"><b>{{poke.name.title()}}</b></p>
+                {# <p class="card-text">{{poke.ability}}</p> #}
+
+                <p class="card-text">Base Experience: {{poke.base_xp}}</p>
+                <p class="card-text">Health Points: {{poke.hp}}</p>
+                <p class="card-text">Defense: {{poke.defense}}</p>
+                <p class="card-text">Attack: {{poke.attack}}</p>
+                {# <p class="card-text">{{poke.url}}</p> #}
+
+            </div>
+            </div>
+            <div class="col-md-6">
+                <img src="{{poke.url}}" class="img-fluid rounded-start" alt="avatar" style="height:200px;">
+                <small><a href="">View My Pokemon</a></small>
+            </div>
+
+        </div>
+        <div class="row g-0">
+
+            
+        </div>
+        </div>
+    {% endif %}
+{% endfor %}
+
+{% endblock %}
+
+

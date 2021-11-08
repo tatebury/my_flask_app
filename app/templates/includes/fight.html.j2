@@ -1,0 +1,69 @@
+{% block css %}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/fight.css')}}">
+{% endblock %}
+    <div class="fighter row">
+        <div class="col-md-6" id="opponent">
+        {% if opponent and opponent.is_dead==false %}
+        <p><b>{{opponent.name.title()}}</b>&nbsp&nbsp A:<b>{{opponent.attack}}</b>&nbsp&nbsp D:<b>{{opponent.defense}}</b>&nbsp&nbsp HP:<b>{{opponent.hp}}</b></p>
+        
+        {# {% elseif opponent %}
+
+        {% endif %} #}
+        <img src="{{opponent.url}}" id="opponent_img" class="img-fluid rounded-start" alt="avatar" style="height:25vw;">
+        {% endif %}
+        </div>
+
+
+        <div class="col-md-6" id="fighter">
+        {% if fighter and fighter.is_dead==false %}
+        <p>HP:<b>{{fighter.hp}}</b>&nbsp&nbsp D:<b>{{fighter.defense}}</b>&nbsp&nbsp A:<b>{{fighter.attack}}</b>&nbsp&nbsp <b>{{fighter.name.title()}}</b></p>
+
+        <img src="{{fighter.url}}" id="fighter_img" class="img-fluid rounded-start" alt="avatar" style="height:25vw;">
+        {% endif %}
+        </div>
+    </div>
+    <div class="fight_button">
+        {% if fighter and opponent %}
+        <form method="POST" action="{{url_for('social.battle', def_id=defender.id, fighter_id=fighter.id, opponent_id=opponent.id, fight=1)}}">
+            <button type="submit" id="fight_button"><b>Fight</b></button>
+        </form>
+        {% endif %}
+
+
+
+        {# <script>
+        console.log('script run');
+        var id = null;
+        var pointingRight = true;
+        var fighterImg = document.getElementById("fighter_img");
+        var opponentImg = document.getElementById("opponent_img");
+        moveImg(fighterImg);
+
+        $(function startFight(fighter, opponent)
+        {
+            console.log('startFight() run');
+
+            if (fighter.base_xp < opponent.base_xp){var goesFirst = fighter;}
+            else{var goesFirst = opponent;}
+            var fighterDamage = 20*(parseFloat(fighter.attack) / parseFloat(opponent.defense));
+            var opponentDamage = 20*(parseFloat(opponent.attack) / parseFloat(fighter.defense));
+            var fighterCurrentHP = parseFloat(fighter.hp);
+            var opponentCurrentHP = parseFloat(opponent.hp);
+
+            
+            function moveImg(img) {
+                var pos = 0;
+                clearInterval(id);
+                id = setInterval(frame, 5);
+                function frame() {
+                    if (pos >= 550) {
+                    clearInterval(id);
+                    } else {
+                    pos+=10; 
+                    img.style.right = pos + 'px'; 
+                    }
+                }
+            }
+        });
+        </script> #}
+    </div>

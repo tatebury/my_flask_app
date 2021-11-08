@@ -1,0 +1,78 @@
+{% extends 'base.html.j2' %}
+
+{% block title %}
+Battle
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/battle.css')}}">
+{% endblock %}
+
+{% block content %}
+    <div class="header row">
+        <div class="col-md-4" id="defender">
+        <h3>{{defender.first_name}} {{defender.last_name}}</h3>
+        </div>
+
+        <div class="col-md-4">
+        <h2><i>VS</i></h2>
+        </div>
+
+        <div class="col-md-4" id="attacker">
+        <h3>{{current_user.first_name}} {{current_user.last_name}}</h3>
+        </div>
+
+    </div> 
+    {% if victory!=null %}
+    {% include './includes/end_battle.html.j2' %}
+    {% else %}
+    {% include './includes/fight.html.j2' %}
+    {% endif %}
+
+    <div class="poke_deck">
+        <div class="" id="attacker_deck">
+            {% for poke in current_user.pokemon %}
+                {% if poke.user_id==current_user.id %}
+                    <div id="attacker_poke">
+                    {% if poke.is_dead!=true  and opponent %}
+                        <form method="POST" action="{{url_for('social.battle', def_id=defender.id, fighter_id=poke.id, opponent_id=opponent.id, fight=0)}}">
+                            <button type="submit">
+                            <img src="{{poke.url}}" id="poke_img" class="img-fluid rounded-start" alt="avatar" style="height:8vw;">
+                            </button>
+                        </form>
+
+                    {% else %}
+                        <button style="background-color:rgb(120, 24, 0);">
+                        <img src="{{poke.url}}" id="poke_img" class="img-fluid rounded-start" alt="avatar" style="height:8vw;transform:rotate(180deg);">
+                        </button>
+                    {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="" id="defender_deck">
+            {% for poke in defender.pokemon %}
+                {% if poke.user_id==defender.id %}
+                    <div id="defender_poke">
+                        {% if poke.is_dead!=true %}
+                            <button style="background-color:rgb(158, 24, 0);">
+                            <img src="{{poke.url}}" id="poke_img" class="img-fluid rounded-start" alt="avatar" style="height:8vw;">
+                            </button>
+                        {% else %}
+                            <button style="background-color:rgb(158, 24, 0);">
+                            <img src="{{poke.url}}" id="poke_img" class="img-fluid rounded-start" alt="avatar" style="height:8vw;transform:rotate(180deg);">
+                            </button>
+                        {% endif %} 
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+    </div>
+
+
+
+
+
+{% endblock %}

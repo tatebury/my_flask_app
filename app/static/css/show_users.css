@@ -1,0 +1,12 @@
+#user_icon {
+    max-height: 100px;
+}
+
+/* #poke_img{
+    float: right;
+} */
+
+#attack_btn{
+    background-color: red;
+    color: azure;
+}

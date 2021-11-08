@@ -1,5 +1,4 @@
 {% extends 'base.html.j2' %}
-
 {% block title%}
 Login
 {% endblock %}
@@ -8,7 +7,7 @@ Login
 <h1>Login</h1>
 <small style="color:red">{{error}}</small><br>
 
-<form action="{{url_for('login')}}" method="POST">
+<form action="{{url_for('auth.login')}}" method="POST">
   {{ form.hidden_tag() }}
   {# email section #}
   {{ form.email.label(class="form-label") }}
@@ -23,4 +22,9 @@ Login
   {# submit section #}
   {{ form.submit(class="btn btn-primary") }}
 </form>
+
+
+
+
+
 {% endblock %}

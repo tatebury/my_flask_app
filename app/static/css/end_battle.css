@@ -1,0 +1,19 @@
+.victory_text {
+    font-size: 20vw;
+    color:gold;
+    font-family: 'copperplate';
+
+}
+
+.defeat_text {
+    font-size: 20vw;
+    color:rgb(134, 2, 2);
+    font-family: 'copperplate';
+
+}
+
+.end_battle_screen {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
